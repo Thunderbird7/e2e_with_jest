@@ -1,0 +1,37 @@
+{
+	"name": "E2ETest",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest",
+		"test:e2e": "detox test -c ios.sim.debug",
+    "test:e2e:build": "detox build"
+	},
+	"dependencies": {
+		"react": "16.0.0",
+		"react-native": "0.50.1"
+	},
+	"devDependencies": {
+		"babel-jest": "21.2.0",
+		"babel-preset-react-native": "4.0.0",
+		"detox": "^5.9.3",
+		"jest": "21.2.1",
+		"react-test-renderer": "16.0.0"
+	},
+	"jest": {
+		"preset": "react-native",
+		"setupTestFrameworkScriptFile": "./e2e/init.js"
+	},
+	"detox": {
+		"runner": "jest",
+		"configurations": {
+			"ios.sim.debug": {
+				"binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/E2ETest.app",
+				"build": "xcodebuild -project ios/E2ETest.xcodeproj -scheme E2ETest -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+				"type": "ios.simulator",
+				"name": "iPhone 7"
+			}
+		}
+	}
+}
