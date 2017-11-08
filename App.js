@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -25,12 +26,8 @@ export default class App extends Component<{}> {
   constructor(props) {
     super(props)
     this.state = {
-      helloButtonText: '',
-      worldButtonText: ''
+      greeting: undefined
     }
-
-    this.onHelloButtonPress = this.onHelloButtonPress.bind(this)
-    this.onWorldButtonPress = this.onWorldButtonPress.bind(this)
   }
 
   render() {
@@ -45,22 +42,19 @@ export default class App extends Component<{}> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
-        <TouchableOpacity testID='hello_button' onPress={this.onHelloButtonPress}>
-          <Text>{this.state.helloButtonText}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity testID='world_button' onPress={this.onWorldButtonPress}>
-          <Text>{this.state.worldButtonText}</Text>
-        </TouchableOpacity>
+        <Button testID='hello_button' title='Say Hello' onPress={() => this.onButtonPress('Hello!!!')} />
+        <Button testID='world_button' title='Say World' onPress={() => this.onButtonPress('World!!!')} />
+        <Text style={styles.welcome}>
+          {this.state.greeting}
+        </Text>
       </View>
     );
   }
 
-  onHelloButtonPress() {
-    this.setState({ helloButtonText: 'Hello!!!' })
-  }
-
-  onWorldButtonPress() {
-    this.setState({ worldButtonText: 'World!!!' })
+  onButtonPress(text) {
+    this.setState({
+      greeting: text
+    })
   }
 }
 
